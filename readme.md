@@ -1,26 +1,30 @@
-# What are we reading right now:
+# I2C
 
-- [A Graduate Course In Applied Cryptography](http://cryptobook.us/)
-- [Crypto 101](https://www.crypto101.io/)
-- [How To Share A Secret](https://cs.jhu.edu/~sdoshi/crypto/papers/shamirturing.pdf)
-- [Cryptography Is Not Magic](https://news.ycombinator.com/item?id=23949694)
-- [Preventing Impossible Game Levels Using Cryptography](https://robertheaton.com/preventing-impossible-game-levels-using-cryptography/)
-- [Understanding Data Integrity](https://qvault.io/2020/05/04/achieving-data-integrity-using-cryptography/)
-- [An Intro To Lattice Based Cryptography](https://qvault.io/2020/01/23/very-basic-intro-to-lattices-in-cryptography/)
-- [Very Basic Intro To Elliptic Curve Cryptography](https://qvault.io/2020/07/21/very-basic-intro-to-elliptic-curve-cryptography/)
-- [GNU: A Heuristic For Bad Cryptography](https://soatok.blog/2020/07/08/gnu-a-heuristic-for-bad-cryptography/)
-- [How To Learn Cryptography As A Programmer](https://soatok.blog/2020/06/10/how-to-learn-cryptography-as-a-programmer/)
-- [Cryptographic Right Answers](https://latacora.micro.blog/2018/04/03/cryptographic-right-answers.html)
-- [Elliptic Curve Cryptography I](https://btcclj.com/posts-output/2020-06-18-elliptic-curve-cryptography-i/)
-- [The curse of ECDSA nonces](https://eprint.iacr.org/2020/728)
-- [Why AES GCM Sucks](https://soatok.blog/2020/05/13/why-aes-gcm-sucks/)
-- [Practical Cryptography For Developers](https://cryptobook.nakov.com/)
-- [Introduction To Elliptic Curve Cryptography](https://medium.com/@animeshgaitonde/introduction-to-elliptic-curve-cryptography-567e47b0e49e)
-- [Public Key Crypto Math Explained](https://www.onebigfluke.com/2013/11/public-key-crypto-math-explained.html?m=1)
-- [How Not To Learn Cryptography](https://news.ycombinator.com/item?id=23384227)
+## References
+[I2C in a nutshell](https://interrupt.memfault.com/blog/i2c-in-a-nutshell)
+[I2C Bus](https://www.i2c-bus.org/)
 
-## Secret key cryptography
+## Notes
+- I2C is cheaper than comparable low-power buses, with fewer pins than SPI, and a simpler physical layer than CAN(no differential signalling).
+- It supports upto 127 devices (1-7 bits)[2^7 - 1].
+- Standard Mode: 100Kbps; Fast Mode: 400 Kbps; Fast Mode Plus: 1Mbps (anything above 400Kbps).
+- For higher bandwidth than I2C people go for SPI like in NOR Flash chips. Even higher like camera interfaces, use MIPI.
+- If reliablity is a must, then go for CAN.
+- If only a single device than use UART.
+- I2C is made up  of two signals: a clock (SCL) and a Data (SDA) lines.
+- By default the lines are pulled high by resistors. If anyone wants to use the lines, they will pull it low.
+- As I2C is a multi-master bus, signalling is done via START and STOP conditions.\
+- A START is to pull SDA LOW with SCL HIGH. When SDA goes HIGH while SCL is HIGH, its a STOP.
+- The 7 bits after a START is the ADDRESS.
+- The Single bit after the Address is READ/WRITE COMMAND. A 1 means the COMMAND is READ and a 0 means the COMMAND is WRITE.
+- A common pattern is to send a WRITE followed by a READ. (REPEATED_START_CONDITION)
+- So it goes like <S><ADDRESS_OF_SLAVE><W><REG_ADDRESS><S><ADDRESS_OF_SLAVE><R><DATA><P> (REPEATED_START_CONDITION)
+- The I2C Protocol states that every byte must be acknowledged by the receiver.
 
-## Public key cryptography
+- So a typical WRITE is:
+  - <S><ADDRESS_OF_SLAVE><W><ACK><ADDRESS_REG_2_WRITE><ACK><DATA_2WRITE><ACK><P>
+- A typical READ is:
+  - <S><ADDRESS_OF_SLAVE><W><ACK><ADDRESS_REG_2_WRITE><ACK><S><ADDRESS_OF_SLAVE><R><ACK><DATA><NACK><P>
+  - A NACK by the master in the above read means that the master does not want any more data.
 
-## Protocols
+- Clock Stretching is a feature where the slave can hold the SCL line low. In this case the Master should wait for the line to become high before sending any data.
