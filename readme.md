@@ -22,7 +22,7 @@
 - The 7 bits after a START is the ADDRESS.
 - The Single bit after the Address is READ/WRITE COMMAND. A 1 means the COMMAND is READ and a 0 means the COMMAND is WRITE.
 - A common pattern is to send a WRITE followed by a READ. (REPEATED_START_CONDITION)
-- So it goes like <S><ADDRESS_OF_SLAVE><W><REG_ADDRESS><S><ADDRESS_OF_SLAVE><R><DATA><P> (REPEATED_START_CONDITION)
+- So it goes like (S)(ADDRESS_OF_SLAVE)(W)(REG_ADDRESS)(S)(ADDRESS_OF_SLAVE)(R)(DATA)(P) [REPEATED_START_CONDITION]
 - The I2C Protocol states that every byte must be acknowledged by the receiver.
 
 - So a typical WRITE is:
