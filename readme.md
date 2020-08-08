@@ -26,9 +26,9 @@
 - The I2C Protocol states that every byte must be acknowledged by the receiver.
 
 - So a typical WRITE is:
-> <S><ADDRESS_OF_SLAVE><W><ACK><ADDRESS_REG_2_WRITE><ACK><DATA_2WRITE><ACK><P>
+> S><ADDRESS_OF_SLAVE><W><ACK><ADDRESS_REG_2_WRITE><ACK><DATA_2WRITE><ACK><P>
 - A typical READ is:
-> <S><ADDRESS_OF_SLAVE><W><ACK><ADDRESS_REG_2_WRITE><ACK><S><ADDRESS_OF_SLAVE><R><ACK><DATA><NACK><P>
+> S><ADDRESS_OF_SLAVE><W><ACK><ADDRESS_REG_2_WRITE><ACK><S><ADDRESS_OF_SLAVE><R><ACK><DATA><NACK><P>
 - A NACK by the master in the above read means that the master does not want any more data.
 
 - Clock Stretching is a feature where the slave can hold the SCL line low. In this case the Master should wait for the line to become high before sending any data.
