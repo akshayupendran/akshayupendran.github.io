@@ -21,6 +21,7 @@
 - A START is signalled by pulling the SDA LOW with SCL HIGH. When SDA goes HIGH while SCL is HIGH, it is a STOP signal.
 - A typical I2C Message starts as follows:
 >  0  1  2  3  4  5  6  7  8  9
+
 > Sta ---Slave Address---  C ACK
 
 - The I2C Protocol states that every byte must be acknowledged by the receiver.
@@ -29,6 +30,7 @@
 
 - A typical read is:
 >  0  1  2  3  4  5  6  7  8  9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38
+
 > Sta ---Slave Address--- 0W ACK ---Master sends reg address---  ACK Sta -------Slave Address------  1  ACK  -------Slave sends data------- NACK Sto
 - So it goes like (S)(ADDRESS_OF_SLAVE)(W)(REG_ADDRESS)(S)(ADDRESS_OF_SLAVE)(R)(DATA)(P) [REPEATED_START_CONDITION]
 
