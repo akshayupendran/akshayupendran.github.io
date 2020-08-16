@@ -21,7 +21,7 @@
 - A START is signalled by pulling the SDA LOW with SCL HIGH. When SDA goes HIGH while SCL is HIGH, it is a STOP signal.
 - The I2C Protocol states that every byte of the payloads must be acknowledged by the receiver.
 - The I2C protocols Start and Stop Conditions are not considered as payloads.
-- - ![](2020-08-09-12-37-12.png)
+- ![](Images/2020-08-09-12-37-12.png)
 - The Single bit after the 7 bit Slave Address is READ/WRITE COMMAND. A 1 means the COMMAND is READ and a 0 means the COMMAND is WRITE.
 - A common pattern is to send a WRITE followed by a READ. (REPEATED_START_CONDITION)
 
