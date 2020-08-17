@@ -1,6 +1,13 @@
-# I2C
+Akshay's Knowledge Base
+=======================
 
-## References
+This website serves more as a personal knowledge base which I would use for spaced repetition of various topics I have read and understood.
+The blog would mainly be oriented towards my profession automotive embedded cyber security.
+
+Topics Covered
+--------------
+
+- [I2C](MarkdownFiles/I2C/PermanentNotes.md)
 
 [I2C in a nutshell](https://interrupt.memfault.com/blog/i2c-in-a-nutshell)
 
