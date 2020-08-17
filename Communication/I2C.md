@@ -20,7 +20,7 @@ Properties
 - Multi-Slave                             (GAC Smartcore: EEP + Amplifier)
 - Packet Switched                         (Every byte has a header)
 - Single Ended                            (All masters and slaves are connected to same reference / ground )
-- Serial Communication                    (Data transmitted one bit at a time)
+- Serial Communication                    (Data transmitted one bit at a time)
 - Open Drain / Non Return To Zero[NRZ]    (By default the lines are pulled high by resistors and the lines can only be pulled low)
 
 Comparison
