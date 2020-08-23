@@ -8,4 +8,3 @@ Topics Covered
 --------------
 
 - [I2C](Communication/I2C.md)
-- [UART](Communication/UART.md)
