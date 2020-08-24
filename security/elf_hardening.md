@@ -33,16 +33,12 @@ Before we start, lets have a compiled version which we can use as an example. Th
 
 Please note the following example was compiled with gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
 
-``` #include <stdio.h>
-
+```c
+#include <stdio.h>
 int main()
-
 {
-
     printf(Hello!\n);
-
     return 0;
-
 }
 ```
 
