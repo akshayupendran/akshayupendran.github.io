@@ -37,23 +37,26 @@ Please note the following example was compiled with gcc (Ubuntu 7.5.0-3ubuntu1~1
 #include <stdio.h>
 int main()
 {
-    printf(Hello!\n);
+    printf("Hello!\n");
     return 0;
 }
 ```
 
-```gcc a.c```
-
-![GCC Output File Type](../images/file_a.out.png)
+```bash
+gcc a.c
+```
 
 - ELF Header
   - The ELF Header contains information about the binary.
-  - The ELF Header can be displayed with the help of ```readelf -h <binary>```
+  - The ELF Header can be displayed with the help of
+
+```bash
+readelf -h <binary>
+```
 
 - Sections
   - Sections consist of all information needed to link the target object file (binary) in order to build a working library.
   - Every section will have a section header.
-  - The ELF Sections can be read using ```readelf -S <executable>```
   - Some interesting common sections are:
     - .text:code
     - .data: intialised data
@@ -66,13 +69,21 @@ int main()
     - .dynamic: Holds all information needed for dynamic linking
     - .rel.dyn: global variable relocation table
     - .rel.plt: function relocation table.
+  - Sections are needed at linktime but not at runtime.
+  - The ELF Sections can be read as follows:
 
-> Note: Sections are needed at linktime but not at runtime.
+```bash
+readelf -S <executable>
+```
 
 - Segments
   - Segments aka Program Headers break down an ELF so that it can be loaded into memory.
   - Segments are not needed in linktime.
-  - Segments can be read by using the command ```readelf -l <executable>```
+  - Segments can be read by using the command
+
+```bash
+readelf -l <executable>
+```
 
 RELRO
 -----
@@ -81,7 +92,11 @@ Note: Recent linux distributions have "full RELRO" enabled by default.
 
 Read-only relocations (RELRO) allow sections of an executable that need to be writable only while a program is loading to be marked read-only before the program starts. This when used independantly without BIND_NOW is often reffered to as "partial RELRO".
 
-To enable partial RELRO, the binary can be compiled with ```gcc -Wl,-z,relro -o <binary_name> <source_code>```
+To enable partial RELRO, the binary can be compiled with
+
+```bash
+gcc -Wl,-z,relro -o <binary_name> <source_code>
+```
 
 There will be no difference between "gcc a.c" and "gcc -Wl,-z,relro a.c" (As Full RELRO is already enabled).
 
@@ -98,7 +113,11 @@ Note: Recent linux distributions have "full RELRO" enabled by default.
 
 Full RERLO or BIND_NOW has all the features of Partial RELRO but also has the entire GOT (re)mapped as read-only.
 
-To enable partial RELRO, the binary can be compiled with ```gcc -Wl,-z,relro,-z,now -o <binary_name> <source_code>```
+To enable partial RELRO, the binary can be compiled with
+
+```bash
+gcc -Wl,-z,relro,-z,now -o <binary_name> <source_code>
+```
 
 There will be no difference between "gcc a.c" and "gcc -Wl,-z,relro,-z,now a.c" (As Full RELRO is already enabled).
 
