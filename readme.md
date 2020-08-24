@@ -7,4 +7,9 @@ The blog would mainly be oriented towards my profession automotive embedded cybe
 Communication
 -------------
 
-- [I2C](Communication/I2C.md)
+- [I2C](communication/i2c.md)
+
+Cyber Security
+--------------
+
+- [Hardening ELFs](security/elf_hardening.md)

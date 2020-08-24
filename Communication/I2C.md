@@ -17,8 +17,7 @@ Properties
 - Pronounciation: I-squared-C
 - Synchronous
   - Clock transmitted via SCL
-- Multi-Master
-  - Reference ?
+- Multi-Master <!-- - Reference ? -->
 - Multi-Slave
   - GAC Smartcore: EEP + Amplifier
 - Packet Switched
@@ -65,7 +64,7 @@ Notes
 - The I2C Protocol states that every byte of the payloads must be acknowledged by the receiver.
 - Structure of a typical I2C Write Command:
 
-![I2C Typical Write Command](../Images/I2C/Write.png)
+![I2C Typical Write Command](../images/i2c_write.png)
 
 - As seen in the above image, a START is signalled by pulling the SDA LOW with SCL HIGH. When SDA goes HIGH while SCL is HIGH, it is considered as a STOP signal.
 - As seen in the above image, the address is 7 bits long. But even though this theoratically means 128 possible addresses, some of the addresses are reserved and thus only 112 addresses can be used.
@@ -74,6 +73,6 @@ Notes
 - The Single bit after the 7 bit Slave Address is the READ/WRITE COMMAND. A 1 means the COMMAND is READ and a 0 means the COMMAND is WRITE.
 - Structure of a typical I2C Read Command:
 
-![I2C Typical Read Command](../Images/I2C/Read.png)
+![I2C Typical Read Command](../imagesi2c_read.png)
 
 - As seen in the above image, a typical read will most likely be a write followed by a read. As the master has to continue holding the line after the write command, he signals a start again. This is called a repeated start condition.
