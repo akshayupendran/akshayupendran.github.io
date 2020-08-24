@@ -7,7 +7,7 @@ The blog would mainly be oriented towards my profession automotive embedded cybe
 Communication
 -------------
 
-- [I2C](communication/i2c.md)
+- [I2C](com/i2c.md)
 
 Cyber Security
 --------------
