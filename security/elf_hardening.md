@@ -11,7 +11,7 @@ References
 Overview
 --------
 
-ELF stands for Executable Linkable Format. 
+ELF stands for Executable Linkable Format.
 
 The file extensions none, .axf, .bin, .elf, .o, .prx, .puff, .ko, .mod and .so, all stand for ELF files.
 
@@ -34,10 +34,15 @@ Before we start, lets have a compiled version which we can use as an example. Th
 Please note the following example was compiled with gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
 
 ``` #include <stdio.h>
+
 int main()
+
 {
+
     printf(Hello!\n);
+
     return 0;
+
 }
 ```
 

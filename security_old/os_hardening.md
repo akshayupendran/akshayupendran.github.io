@@ -89,7 +89,7 @@ RELRO can be enabled via the the Linker Flag: *relro*.
 
 ### BIND_NOW
 
-When used in combination with RELRO, BIND_NOW prevents the full global offset table (GOT) from being overwritten. 
+When used in combination with RELRO, BIND_NOW prevents the full global offset table (GOT) from being overwritten.
 
 #### Enabling BIND NOW in QCC [GCC]
 
@@ -106,7 +106,7 @@ The random mixing of memory addresses performed by ASLR means that an attack no 
 
 #### Enabling ASLR in QNX 7
 
-Address Space Layout Randomisation (ASLR) can be enabled via the memory manager of procnto. ASLR can be enabled by passing –mr to procnto 
+Address Space Layout Randomisation (ASLR) can be enabled via the memory manager of procnto. ASLR can be enabled by passing –mr to procnto
 
 > procnto-smp-instr –mr
 
