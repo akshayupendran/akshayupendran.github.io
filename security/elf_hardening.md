@@ -106,6 +106,14 @@ There will be no difference between "gcc a.c" and "gcc -Wl,-z,relro a.c" (As Ful
 - Non-PLT GOT is read-only
 - GOT is still writeable
 
+Partial RELRO can be confirmed by reading the segments and searching for GNU_RELRO.
+
+```bash
+readelf -l partial_relro.elf | grep 'GNU_RELRO'
+```
+
+![Partial RELRO Cofirmation](../images/partial_relro_confirmation.png)
+
 BIND_NOW [FULL RELRO]
 ---------------------
 
@@ -113,7 +121,7 @@ Note: Recent linux distributions have "full RELRO" enabled by default.
 
 Full RERLO or BIND_NOW has all the features of Partial RELRO but also has the entire GOT (re)mapped as read-only.
 
-To enable partial RELRO, the binary can be compiled with
+To enable full RELRO, the binary can be compiled with
 
 ```bash
 gcc -Wl,-z,relro,-z,now -o <binary_name> <source_code>
@@ -122,6 +130,14 @@ gcc -Wl,-z,relro,-z,now -o <binary_name> <source_code>
 There will be no difference between "gcc a.c" and "gcc -Wl,-z,relro,-z,now a.c" (As Full RELRO is already enabled).
 
 ![Full RELRO Compilation](../images/full_relro_compilation.png)
+
+If partial RELRO is already confirmed, Full RELRO can be confirmed by reading the dynamic section(-d) and searching for BIND_NOW.
+
+```bash
+readelf -d full_relro.elf | grep 'BIND_NOW'
+```
+
+![Full RELRO Cofirmation](../images/full_relro_confirmation.png)
 
 Vulnerablities
 --------------
