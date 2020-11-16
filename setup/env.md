@@ -27,3 +27,6 @@ Ubuntu 20.04
   - follow https://emailselfdefense.fsf.org/en/index.html
   
 - Install Joplin
+
+- Install VSCodium
+- Install NextCloud
