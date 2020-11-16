@@ -21,7 +21,9 @@ Ubuntu 20.04
 - Change primevideo to amazon container
 - Make github in personal container.
 - Make spotify web player to facebook container.
+- Office 365 shall always open in work
 
-
-Thunderbird - addons
-Enigmail add on
+- Thunderbird - addons
+  - follow https://emailselfdefense.fsf.org/en/index.html
+  
+- Install Joplin
