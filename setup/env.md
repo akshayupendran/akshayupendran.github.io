@@ -5,7 +5,7 @@ Ubuntu 20.04
 - sudo apt upgrade
 
 
-- Firefox
+- Firefox for browser
   - Extensions
     - uBlock Origin
     - HTTPS Everywhere
@@ -25,6 +25,6 @@ Ubuntu 20.04
   - Change Office 365 to open in work
 - Thunderbird - addons
   - follow https://emailselfdefense.fsf.org/en/index.html
-- Install Joplin
-- Install VSCodium
-- Install NextCloud
+- Install Joplin for Smart Notes
+- Install VSCodium for editor
+- Install NextCloud for cloud based services.
