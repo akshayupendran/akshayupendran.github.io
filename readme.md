@@ -1,20 +1,10 @@
-Akshay's Knowledge Base
-=======================
+# Akshay's Knowledge Base
 
 This website serves more as a personal knowledge base which I would use for spaced repetition of various topics I have read and understood.
-The blog would mainly be oriented towards my profession automotive embedded cyber security.
+The blog would mainly be oriented towards my profession -> automotive embedded cyber-security.
 
-Setup Information
------------------
+I will be spending 100 days learning various things from Mar 20th 2021.
 
-- [Ubuntu 20.04](setup/env.md)
+## Day 1
 
-Communication
--------------
-
-- [I2C](com/i2c.md)
-
-Cyber Security
---------------
-
-- [Hardening ELFs](security/elf_hardening.md)
+- [OpenSSL CLI Guide](security/openssl.md)
