@@ -4,7 +4,7 @@
   - [Introduction](#introduction)
   - [Asymmetric Key Cryptography](#asymmetric-key-cryptography)
     - [Generating a private key (RSA)](#generating-a-private-key-rsa)
-    - [Extracting the public Key](#extracting-the-public-key)
+    - [Extracting the public Key (RSA)](#extracting-the-public-key-rsa)
     - [Generating a signature (RSA)](#generating-a-signature-rsa)
     - [Generating a private key (EC)](#generating-a-private-key-ec)
 
@@ -54,7 +54,7 @@ To confirm if our parameters have taken effect, we can run the same in -text wit
 openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:3072 -pkeyopt rsa_keygen_primes:3 -pkeyopt rsa_keygen_pubexp:17 -text
 ```
 
-### Extracting the public Key
+### Extracting the public Key (RSA)
 
 The public key can be extracted from the private key using the ```rsa``` sub-util.
 
