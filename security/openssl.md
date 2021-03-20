@@ -6,7 +6,6 @@
     - [Generating a private key (RSA)](#generating-a-private-key-rsa)
     - [Extracting the public Key (RSA)](#extracting-the-public-key-rsa)
     - [Generating a signature (RSA)](#generating-a-signature-rsa)
-    - [Generating a private key (EC)](#generating-a-private-key-ec)
 
 
 ## Introduction
@@ -126,12 +125,3 @@ To show that both methods produce the same signature, we can confirm without
 ```sh
 diff signature.sig signature2.sig
 ```
-
-### Generating a private key (EC)
-
-- List of elliptic curves supported are:
-  - P-192
-  - P-224
-  - P-256
-  - P-384
-  - P-521
