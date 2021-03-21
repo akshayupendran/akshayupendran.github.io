@@ -5,6 +5,6 @@ The blog would mainly be oriented towards my profession -> automotive embedded c
 
 I will be spending 100 days learning various things from Mar 20th 2021.
 
-## Day 1
+## Day 1 and Day 2
 
-- [OpenSSL CLI Guide](security/openssl.md)
+- [OpenSSL CLI Guide for RSA](security/openssl_rsa.md)
