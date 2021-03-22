@@ -8,3 +8,8 @@ I will be spending 100 days learning various things from Mar 20th 2021.
 ## Day 1 and Day 2
 
 - [OpenSSL CLI Guide for RSA](security/openssl_rsa.md)
+
+## Future Topic Requests
+
+1. Shopify
+2. POS
