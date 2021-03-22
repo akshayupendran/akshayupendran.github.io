@@ -18,7 +18,6 @@
       - [Generating a Signature](#generating-a-signature)
       - [Verifying the signature](#verifying-the-signature)
 
-
 ## Introduction
 
 OpenSSL is a general purpose cryptography library / utility.
@@ -44,7 +43,7 @@ There are two main forms in which it is used: Encryption/Decryption and Signatur
 In case of Encryption/Decryption, the server generates a key pair and distributes the public key to the clients so that the clients can encrypt their transmission using the public key and the server would be the only one who is able to decrypt it as he holds the private key.
 Even though the above method is logical, as its extremely time consuming, the client usually establishes a session by encrypting a symmetric key with the public key and transmits it to the server, who decrypts it using the private key and uses that symmetric key for all future communications.
 
-Hence this article will mainly explore the generation of the key pair and enc/dec and signatureGeneration/Verification using RSA.
+Hence this article will mainly explore the generation of the key pair and encryption/decryption and signatureGeneration/Verification using RSA.
 
 ## RSA
 
@@ -66,7 +65,7 @@ References:
   - coefficient n
 - A RSA Public key is nothing but extracting the Modulus and public exponent.
 - Hence a public key consists of:
-  - Mouduls
+  - Modulus
   - Public Exponent
 
 OpenSSL defaults:
@@ -90,7 +89,7 @@ But as DER is not transmittable over a network, the DER is base64 encoded to for
 
 ### Generating a private key (RSA)
 
-The sub-util used for generating a private key is ```genpkey```.
+The sub-utility used for generating a private key is ```genpkey```.
 
 Generating a RSA Private Key in PEM format:
 
@@ -115,7 +114,7 @@ openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:3072 -pkeyopt rsa_keygen
 Prerequisites
 [Generating a private key (RSA)](#generating-a-private-key-rsa)
 
-The public key can be extracted from the private key using the ```rsa``` sub-util.
+The public key can be extracted from the private key using the ```rsa``` sub-utility.
 
 We can extract the public key using the RSA utility.
 There are two major formats for a RSA Public key.
@@ -146,7 +145,7 @@ openssl rsa -in private_key.pem -RSAPublicKey_out -out public_key.pem
 Prerequisites
 [Generating a private key (RSA)](#generating-a-private-key-rsa)
 
-Signature can be created either using the ```dgst``` sub util or using the ```pkeyutl``` sub util.
+Signature can be created either using the ```dgst``` sub util or using the ```pkeyutl``` sub utility.
 
 Lets create a plain text:
 
@@ -156,14 +155,14 @@ echo "Wonderful Wolrd!" > plain_text.txt
 
 There are two ways we can sign a plain text as described above.
 
-Let us first generate the signature using the ```dgst``` utl.
+Let us first generate the signature using the ```dgst``` sub utility.
 
 ```sh
 openssl dgst -sha256 -out signature.sig -sign private_key.pem plain_text.txt
 ```
 
 Let us create another signature using the second method.
-For this first lets generate the sha2-256 digest of the plain_text.txt.
+For this first lets generate the SHA2-256 digest of the ```plain_text.txt```.
 
 ```sh
 openssl dgst -sha256 -binary -out hash.sha256 plain_text.txt
@@ -238,8 +237,8 @@ Let us create a non encrypted private key from the encrypted one.
 openssl rsa -in private_key2.pem -passin pass:hello -out private_key3.pem
 ```
 
-I still dont know how to encrypt private_key3.pem to make it private_key2.pem #TODO
-#ToDo I could encrypt using ```openssl enc -aes-128-cbc -e -pass pass:hello -in private_key3.pem -out private_key4.pem -a
+I still don't know how to encrypt private_key3.pem to make it private_key2.pem #ToDo
+I could encrypt using ```openssl enc -aes-128-cbc -e -pass pass:hello -in private_key3.pem -out private_key4.pem -a #ToDo
 
 Hence lets fallback and try the other operations.
 
@@ -265,7 +264,7 @@ diff signature3.sig signature4.sig
 
 #### Verifying the signature
 
-#ToDo Find out why OpenSSL dgst function accept a RSA Public key but only accepts a generic public key.
+Find out why OpenSSL dgst function accept a RSA Public key but only accepts a generic public key.#ToDo
 
 Hence to avoid this problem lets convert our RSA Public Key to a generic SSL public public_key.pem
 
