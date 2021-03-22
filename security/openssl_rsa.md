@@ -52,6 +52,7 @@ References:
 [PKCS #1 specification -> RFC 8017](https://tools.ietf.org/html/rfc8017)
 
 - A RSA Private key consists of:
+  - version (0 unless multi prime is used in which case its 1)
   - Modulus (same length as key)
   - publicExponent
   - privateExponent (same length as key)
@@ -78,6 +79,12 @@ OpenSSL defaults:
 - As the public exponent becomes smaller and smaller, the computation time becomes lesser.
 
 ## PEM vs DER
+
+References
+[How to transform between the two key styles](https://stackoverflow.com/a/29707204).
+
+DER is the preferred ASN.1 syntax for Cryptographic Keys and for identifying Schemes.
+But as DER is not transmittable over a network, the DER is base64 encoded to form the PEM format.
 
 ## Practical Experiments
 
