@@ -3,8 +3,10 @@
 - [OpenSSL RSA](#openssl-rsa)
   - [Introduction](#introduction)
   - [Asymmetric Key Cryptography](#asymmetric-key-cryptography)
-  - [RSA](#rsa)
+  - [OpenSSL CLI Introduction](#openssl-cli-introduction)
   - [PEM vs DER](#pem-vs-der)
+  - [RSA](#rsa)
+  - [EC](#ec)
   - [Practical Experiments](#practical-experiments)
     - [Generating a private key (RSA)](#generating-a-private-key-rsa)
     - [Extracting the public Key (RSA)](#extracting-the-public-key-rsa)
@@ -12,38 +14,56 @@
     - [Verifying a signature (RSA)](#verifying-a-signature-rsa)
     - [Encrypting a file (RSA)](#encrypting-a-file-rsa)
     - [Decrypting a file (RSA)](#decrypting-a-file-rsa)
-    - [Encrypted Private keys](#encrypted-private-keys)
-      - [Generation of private Key](#generation-of-private-key)
-      - [Extracting the Public key](#extracting-the-public-key)
-      - [Generating a Signature](#generating-a-signature)
-      - [Verifying the signature](#verifying-the-signature)
+    - [Encrypted Private keys (RSA)](#encrypted-private-keys-rsa)
+      - [Generation of private Key (Encrypted RSA)](#generation-of-private-key-encrypted-rsa)
+      - [Extracting the Public key (Encrypted RSA)](#extracting-the-public-key-encrypted-rsa)
+      - [Generating a Signature (Encrypted RSA)](#generating-a-signature-encrypted-rsa)
+      - [Verifying the signature (Encrypted RSA)](#verifying-the-signature-encrypted-rsa)
+    - [Generating a private key (EC)](#generating-a-private-key-ec)
 
 ## Introduction
 
 OpenSSL is a general purpose cryptography library / utility.
-In this article we will be exploring the Command Line Interface / Utility part of OpenSSL for RSA.
+In this article we will be exploring the Command Line Interface / Utility part of OpenSSL for RSA and Elliptic Curve Cryptography (EC).
 We will be using ```OpenSSL 1.1.1f``` in the below article.
-Before we get started please make a note of the following points:
-
-- OpenSSL assumes the keys in the arguments to be of the PEM(privacy Enhanced Mail) format if not specified.
-- OpenSSL considers the keys in arguments to be private keys by default,
-
-Before we go into what the above PEM format is, let us learn a bit about the core concept.
+Before we go into the details, let us first learn a bit of theory on Asymmetric Cryptography, EC and RSA.
 
 ## Asymmetric Key Cryptography
 
-The various asymmetric key cryptography algorithms supported by OpenSSL utility are RSA, RSA-PSS, EC, X25519, X448, ED25519 and ED448.
-GenPKey is a utility to generate private keys in OpenSSL.
-We will mainly be dealing with RSA in the following article.
-
-RSA is the most common form of asymmetric key cryptography.
 Asymmetric key cryptography is a form of cryptography where there are two keys involved - a public key and a private key.
 The public key is distributed to other people but the private key is always held a secret.
-There are two main forms in which it is used: Encryption/Decryption and SignatureGeneration/Verification.
-In case of Encryption/Decryption, the server generates a key pair and distributes the public key to the clients so that the clients can encrypt their transmission using the public key and the server would be the only one who is able to decrypt it as he holds the private key.
+There are two main forms in which asymmetric key cryptography is used: Encryption/Decryption and SignatureGeneration/Verification.
+The server generates a key pair and distributes the public key to the clients.
+In case of Encryption/Decryption, the clients can encrypt their transmission using the public key and the server would be the only one who is able to decrypt it as he holds the private key.
 Even though the above method is logical, as its extremely time consuming, the client usually establishes a session by encrypting a symmetric key with the public key and transmits it to the server, who decrypts it using the private key and uses that symmetric key for all future communications.
+Hence this article will mainly explore the generation of the key pair and encryption/decryption and signatureGeneration/Verification using RSA and EC (Elliptic Key Cryptography).
+The various asymmetric key cryptography algorithms supported by OpenSSL utility are RSA, RSA-PSS, EC, X25519, X448, ED25519 and ED448.
 
-Hence this article will mainly explore the generation of the key pair and encryption/decryption and signatureGeneration/Verification using RSA.
+RSA is the most common form of asymmetric key cryptography.
+
+## OpenSSL CLI Introduction
+
+We have a list of OpenSSL sub utilities which we can use to demonstrate the different types of asymmetric key cryptographic operations.
+
+The main sub utilities and their respective purposes are as follows:
+
+1. GenPKey is a sub utility to generate Private Keys.
+2. RSA is a sub utility for processing RSA keys.
+3. EC is a sub utility for processing EC keys.
+4. DGST is a sub utility for generating a digest and also signing / verifying the digest using a private key.
+5. PKeyUtl is a sub utility to sign/verify hash and also encryption/decryption of plain text.
+
+OpenSSL has a few defaults which are as follows:
+
+- OpenSSL assumes the keys in the arguments to be of the PEM(privacy Enhanced Mail) format if not specified.
+- OpenSSL considers the keys in arguments to be private keys by default.
+
+## PEM vs DER
+
+DER is the preferred ASN.1 syntax for Cryptographic Keys and for identifying Schemes.
+But as DER is not transmittable over a network, the DER is base64 encoded to form the PEM format.
+Update DER encoding here #ToDo
+Update ASN.1 encoding here #ToDo
 
 ## RSA
 
@@ -77,13 +97,15 @@ OpenSSL defaults:
 - The default public exponent is 65537.
 - As the public exponent becomes smaller and smaller, the computation time becomes lesser.
 
-## PEM vs DER
+## EC
 
-References
-[How to transform between the two key styles](https://stackoverflow.com/a/29707204).
+Elliptic Curve public key is of the following format:
 
-DER is the preferred ASN.1 syntax for Cryptographic Keys and for identifying Schemes.
-But as DER is not transmittable over a network, the DER is base64 encoded to form the PEM format.
+- first bit is compression
+- ((n-1)/2) bits are x
+- ((n-1)/2) bits are y
+
+Structured version of ECC Keys are to be described #ToDo
 
 ## Practical Experiments
 
@@ -219,11 +241,11 @@ We could decrypt any plain text using the private key as follows:
 openssl pkeyutl -decrypt -inkey private_key.pem -in cipher_text.txt -out plain_text2.txt
 ```
 
-### Encrypted Private keys
+### Encrypted Private keys (RSA)
 
 An encrypted private key is better and safer than a plain private key.
 
-#### Generation of private Key
+#### Generation of private Key (Encrypted RSA)
 
 ```sh
 openssl genpkey -out private_key2.pem -algorithm RSA -aes-128-cbc -pass pass:hello
@@ -242,13 +264,13 @@ I could encrypt using ```openssl enc -aes-128-cbc -e -pass pass:hello -in privat
 
 Hence lets fallback and try the other operations.
 
-#### Extracting the Public key
+#### Extracting the Public key (Encrypted RSA)
 
 ```sh
 openssl rsa -in private_key2.pem -passin pass:hello --RSAPublicKey_out -out public_key2.pem
 ```
 
-#### Generating a Signature
+#### Generating a Signature (Encrypted RSA)
 
 ```sh
 openssl dgst -sha256 -out signature3.sig -sign private_key2.pem -passin pass:hello plain_text.txt
@@ -262,7 +284,7 @@ openssl pkeyutl -sign -in hash.sha256 -inkey private_key2.pem -passin pass:hello
 diff signature3.sig signature4.sig
 ```
 
-#### Verifying the signature
+#### Verifying the signature (Encrypted RSA)
 
 Find out why OpenSSL dgst function accept a RSA Public key but only accepts a generic public key.#ToDo
 
@@ -277,3 +299,11 @@ openssl dgst -sha256 -verify public_key3.pem -signature signature3.sig plain_tex
 ```
 
 More inforation on the above transformation can be found at [How to transform between the two key styles](https://stackoverflow.com/a/29707204).
+
+### Generating a private key (EC)
+
+Similar to [Generating a private key (RSA)](#generating-a-private-key-rsa)
+
+```sh
+openssl genpkey -out private_key.pem -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -pkeyopt ec_param_enc:named_curve
+```
