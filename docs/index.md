@@ -1,17 +1,5 @@
-# Foam-mkdocs-template
-Welcome to Foam-mkdocs-template! [[#support roamlinks]]!
+# Akshay's Knowledge Base
 
-* How to create this website and share your foam/obsidian notes? See: [[tutorial]]
-* [foam](https://github.com/foambubble/foam)
+## Openssl
 
-
-## Support roamlinks
-
-| origin                  | convert                             |
-| ----------------------- | ----------------------------------- |
-| `[Git Flow](git_flow.md)` | `[Git Flow](../software/git_flow.md)` |
-| `[[Git Flow]]`            | `[Git Flow](../software/git_flow.md)` |
-| `![[image.png]]`           | `![image.png](../image/imag.png)`      |
-| `[[#Heading identifiers]]` | `[Heading identifiers in HTML](#heading-identifiers-in-html)`|
-| `[[Git Flow#Heading]]`     |  `[Git Flow](../software/git_flow.md#heading)` |
-
+- [OpenSSL CLI Guide for RSA and EC](01_pages/01_cli/01_openssl.md)
