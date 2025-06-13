@@ -2,4 +2,4 @@
 
 ## Openssl
 
-- [OpenSSL CLI Guide for RSA and EC](01_pages/01_openssl_cli.md)
+- [OpenSSL CLI Guide](01_pages/openssl_cli/openssl_overview.md)
