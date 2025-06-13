@@ -1,0 +1,1041 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-5.5.12">
+    
+    
+      
+        <title>OpenSSL CLI Tutorial - Foam-mkdocs-template</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4dd2dd8d.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#openssl-cli-tutorial" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Foam-mkdocs-template" class="md-header-nav__button md-logo" aria-label="Foam-mkdocs-template">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Foam-mkdocs-template
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              OpenSSL CLI Tutorial
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." class="md-tabs__link">
+        Akshay's Knowledge Base
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" class="md-tabs__link md-tabs__link--active">
+          01 pages
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Foam-mkdocs-template" class="md-nav__button md-logo" aria-label="Foam-mkdocs-template">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Foam-mkdocs-template
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Akshay's Knowledge Base" class="md-nav__link">
+      Akshay's Knowledge Base
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      01 pages
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="01 pages" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        01 pages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        OpenSSL CLI Tutorial
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="OpenSSL CLI Tutorial" class="md-nav__link md-nav__link--active">
+      OpenSSL CLI Tutorial
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asymmetric-key-cryptography" class="md-nav__link">
+    Asymmetric Key Cryptography
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openssl-cli-introduction" class="md-nav__link">
+    OpenSSL CLI Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pem-vs-der" class="md-nav__link">
+    PEM vs DER
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rsa" class="md-nav__link">
+    RSA
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ec" class="md-nav__link">
+    EC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-experiments" class="md-nav__link">
+    Practical Experiments
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical Experiments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-private-key-rsa" class="md-nav__link">
+    Generating a private key (RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-the-public-key-rsa" class="md-nav__link">
+    Extracting the public Key (RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-signature-rsa" class="md-nav__link">
+    Generating a signature (RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifying-a-signature-rsa" class="md-nav__link">
+    Verifying a signature (RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encrypting-a-file-rsa" class="md-nav__link">
+    Encrypting a file (RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decrypting-a-file-rsa" class="md-nav__link">
+    Decrypting a file (RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encrypted-private-keys-rsa" class="md-nav__link">
+    Encrypted Private keys (RSA)
+  </a>
+  
+    <nav class="md-nav" aria-label="Encrypted Private keys (RSA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generation-of-private-key-encrypted-rsa" class="md-nav__link">
+    Generation of private Key (Encrypted RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-the-public-key-encrypted-rsa" class="md-nav__link">
+    Extracting the Public key (Encrypted RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-signature-encrypted-rsa" class="md-nav__link">
+    Generating a Signature (Encrypted RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifying-the-signature-encrypted-rsa" class="md-nav__link">
+    Verifying the signature (Encrypted RSA)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-private-key-ec" class="md-nav__link">
+    Generating a private key (EC)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Openssl cli
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Openssl cli" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        <span class="md-nav__icon md-icon"></span>
+        Openssl cli
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../openssl_cli/openssl-certificates/" title="OpenSSL Certificates" class="md-nav__link">
+      OpenSSL Certificates
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../openssl_cli/openssl-cheatsheet/" title="OpenSSL Cheatsheet" class="md-nav__link">
+      OpenSSL Cheatsheet
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../openssl_cli/openssl-csr/" title="OpenSSL Certificate Signing Request (CSR)" class="md-nav__link">
+      OpenSSL Certificate Signing Request (CSR)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../openssl_cli/openssl-digest/" title="OpenSSL Digest (Checksum)" class="md-nav__link">
+      OpenSSL Digest (Checksum)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../openssl_cli/openssl-encrypt-decrypt/" title="OpenSSL Encrypt & Decrypt" class="md-nav__link">
+      OpenSSL Encrypt &amp; Decrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../openssl_cli/openssl-format-conversion/" title="OpenSSL Format Conversion" class="md-nav__link">
+      OpenSSL Format Conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../openssl_cli/openssl-genparam/" title="OpenSSL genparam" class="md-nav__link">
+      OpenSSL genparam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../openssl_cli/openssl-genpkey/" title="OpenSSL genpkey" class="md-nav__link">
+      OpenSSL genpkey
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../openssl_cli/openssl-overview/" title="OpenSSL Overview" class="md-nav__link">
+      OpenSSL Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../openssl_cli/openssl-s_client/" title="OpenSSL s_client" class="md-nav__link">
+      OpenSSL s_client
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../openssl_cli/openssl_overview/" title="OpenSSL Overview" class="md-nav__link">
+      OpenSSL Overview
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asymmetric-key-cryptography" class="md-nav__link">
+    Asymmetric Key Cryptography
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openssl-cli-introduction" class="md-nav__link">
+    OpenSSL CLI Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pem-vs-der" class="md-nav__link">
+    PEM vs DER
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rsa" class="md-nav__link">
+    RSA
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ec" class="md-nav__link">
+    EC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-experiments" class="md-nav__link">
+    Practical Experiments
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical Experiments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-private-key-rsa" class="md-nav__link">
+    Generating a private key (RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-the-public-key-rsa" class="md-nav__link">
+    Extracting the public Key (RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-signature-rsa" class="md-nav__link">
+    Generating a signature (RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifying-a-signature-rsa" class="md-nav__link">
+    Verifying a signature (RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encrypting-a-file-rsa" class="md-nav__link">
+    Encrypting a file (RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decrypting-a-file-rsa" class="md-nav__link">
+    Decrypting a file (RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encrypted-private-keys-rsa" class="md-nav__link">
+    Encrypted Private keys (RSA)
+  </a>
+  
+    <nav class="md-nav" aria-label="Encrypted Private keys (RSA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generation-of-private-key-encrypted-rsa" class="md-nav__link">
+    Generation of private Key (Encrypted RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-the-public-key-encrypted-rsa" class="md-nav__link">
+    Extracting the Public key (Encrypted RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-signature-encrypted-rsa" class="md-nav__link">
+    Generating a Signature (Encrypted RSA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifying-the-signature-encrypted-rsa" class="md-nav__link">
+    Verifying the signature (Encrypted RSA)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-private-key-ec" class="md-nav__link">
+    Generating a private key (EC)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h1 id="openssl-cli-tutorial">OpenSSL CLI Tutorial<a class="headerlink" href="#openssl-cli-tutorial" title="Permanent link">#</a></h1>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">#</a></h2>
+<p>Below command installs openssl:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>openssl
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>is<span class="w"> </span>already<span class="w"> </span>the<span class="w"> </span>newest<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="m">3</span>.0.13-0ubuntu3.5<span class="o">)</span>
+</code></pre></div>
+<p>You can check the installed version with:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>version
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>OpenSSL<span class="w"> </span><span class="m">3</span>.0.13<span class="w"> </span><span class="m">30</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2024</span><span class="w"> </span><span class="o">(</span>Library:<span class="w"> </span>OpenSSL<span class="w"> </span><span class="m">3</span>.0.13<span class="w"> </span><span class="m">30</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">2024</span><span class="o">)</span>
+</code></pre></div>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>&lt;command&gt;<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>arguments<span class="o">]</span>
+</code></pre></div>
+<p>Before we go into the details, let us first learn a bit of theory on Asymmetric Cryptography, EC and RSA.</p>
+<h2 id="asymmetric-key-cryptography">Asymmetric Key Cryptography<a class="headerlink" href="#asymmetric-key-cryptography" title="Permanent link">#</a></h2>
+<p>Asymmetric key cryptography is a form of cryptography where there are two keys involved - a public key and a private key.<br />
+The public key is distributed to other people but the private key is always held a secret.<br />
+There are two main forms in which asymmetric key cryptography is used: Encryption/Decryption and SignatureGeneration/Verification.<br />
+The server generates a key pair and distributes the public key to the clients.<br />
+In case of Encryption/Decryption, the clients can encrypt their transmission using the public key and the server would be the only one who is able to decrypt it as he holds the private key.<br />
+Even though the above method is logical, as its extremely time consuming, the client usually establishes a session by encrypting a symmetric key with the public key and transmits it to the server, who decrypts it using the private key and uses that symmetric key for all future communications.<br />
+Hence this article will mainly explore the generation of the key pair and encryption/decryption and signatureGeneration/Verification using RSA and EC (Elliptic Key Cryptography).<br />
+The various asymmetric key cryptography algorithms supported by OpenSSL utility are RSA, RSA-PSS, EC, X25519, X448, ED25519 and ED448.</p>
+<p>RSA is the most common form of asymmetric key cryptography.</p>
+<h2 id="openssl-cli-introduction">OpenSSL CLI Introduction<a class="headerlink" href="#openssl-cli-introduction" title="Permanent link">#</a></h2>
+<p>We have a list of OpenSSL sub utilities which we can use to demonstrate the different types of asymmetric key cryptographic operations.</p>
+<p>The main sub utilities and their respective purposes are as follows:</p>
+<ol>
+<li>GenPKey is a sub utility to generate Private Keys.</li>
+<li>RSA is a sub utility for processing RSA keys.</li>
+<li>EC is a sub utility for processing EC keys.</li>
+<li>DGST is a sub utility for generating a digest and also signing / verifying the digest using a private key.</li>
+<li>PKeyUtl is a sub utility to sign/verify hash and also encryption/decryption of plain text.</li>
+</ol>
+<p>OpenSSL has a few defaults which are as follows:</p>
+<ul>
+<li>OpenSSL assumes the keys in the arguments to be of the PEM(privacy Enhanced Mail) format if not specified.</li>
+<li>OpenSSL considers the keys in arguments to be private keys by default.</li>
+</ul>
+<h2 id="pem-vs-der">PEM vs DER<a class="headerlink" href="#pem-vs-der" title="Permanent link">#</a></h2>
+<p>DER is the preferred ASN.1 syntax for Cryptographic Keys and for identifying Schemes.<br />
+But as DER is not transmittable over a network, the DER is base64 encoded to form the PEM format.<br />
+Update DER encoding here #ToDo<br />
+Update ASN.1 encoding here #ToDo</p>
+<h2 id="rsa">RSA<a class="headerlink" href="#rsa" title="Permanent link">#</a></h2>
+<p>References:<br />
+<a href="https://tools.ietf.org/html/rfc8017">PKCS #1 specification -&gt; RFC 8017</a></p>
+<ul>
+<li>A RSA Private key consists of:</li>
+<li>version (0 unless multi prime is used in which case its 1)</li>
+<li>Modulus (same length as key)</li>
+<li>publicExponent</li>
+<li>privateExponent (same length as key)</li>
+<li>prime1</li>
+<li>prime2</li>
+<li>exponent1</li>
+<li>exponent2</li>
+<li>coefficient</li>
+<li>prime n</li>
+<li>exponent n</li>
+<li>coefficient n</li>
+<li>A RSA Public key is nothing but extracting the Modulus and public exponent.</li>
+<li>Hence a public key consists of:</li>
+<li>Modulus</li>
+<li>Public Exponent</li>
+</ul>
+<p>OpenSSL defaults:</p>
+<ul>
+<li>The RSA key sizes shall be a minimum of 1024 bits.</li>
+<li>The default size of RSA key in OpenSSL is 2048 bits.</li>
+<li>The default number of prime numbers used is 2.</li>
+<li>The maximum number of prime numbers supported is 3.</li>
+<li>The default public exponent is 65537.</li>
+<li>As the public exponent becomes smaller and smaller, the computation time becomes lesser.</li>
+</ul>
+<h2 id="ec">EC<a class="headerlink" href="#ec" title="Permanent link">#</a></h2>
+<p>Elliptic Curve public key is of the following format:</p>
+<ul>
+<li>first bit is compression</li>
+<li>((n-1)/2) bits are x</li>
+<li>((n-1)/2) bits are y</li>
+</ul>
+<p>Structured version of ECC Keys are to be described #ToDo</p>
+<h2 id="practical-experiments">Practical Experiments<a class="headerlink" href="#practical-experiments" title="Permanent link">#</a></h2>
+<h3 id="generating-a-private-key-rsa">Generating a private key (RSA)<a class="headerlink" href="#generating-a-private-key-rsa" title="Permanent link">#</a></h3>
+<p>The sub-utility used for generating a private key is <code>genpkey</code>.</p>
+<p>Generating a RSA Private Key in PEM format:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genpkey<span class="w"> </span>-out<span class="w"> </span>private_key.pem<span class="w"> </span>-algorithm<span class="w"> </span>RSA
+</code></pre></div>
+<p>Generating a RSA 3072 bit Private Key with 3 primes and a public exponent 17 in DER format:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genpkey<span class="w"> </span>-out<span class="w"> </span>private_key.der<span class="w"> </span>-outform<span class="w"> </span>DER<span class="w"> </span>-algorithm<span class="w"> </span>RSA<span class="w"> </span>-pkeyopt<span class="w"> </span>rsa_keygen_bits:3072<span class="w"> </span>-pkeyopt<span class="w"> </span>rsa_keygen_primes:3<span class="w"> </span>-pkeyopt<span class="w"> </span>rsa_keygen_pubexp:17
+</code></pre></div>
+<p>To confirm if our parameters have taken effect, we can run the same in -text without an output file.</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genpkey<span class="w"> </span>-algorithm<span class="w"> </span>RSA<span class="w"> </span>-pkeyopt<span class="w"> </span>rsa_keygen_bits:3072<span class="w"> </span>-pkeyopt<span class="w"> </span>rsa_keygen_primes:3<span class="w"> </span>-pkeyopt<span class="w"> </span>rsa_keygen_pubexp:17<span class="w"> </span>-text
+</code></pre></div>
+<h3 id="extracting-the-public-key-rsa">Extracting the public Key (RSA)<a class="headerlink" href="#extracting-the-public-key-rsa" title="Permanent link">#</a></h3>
+<p>Prerequisites<br />
+<a href="#generating-a-private-key-rsa">Generating a private key (RSA)</a></p>
+<p>The public key can be extracted from the private key using the <code>rsa</code> sub-utility.</p>
+<p>We can extract the public key using the RSA utility.<br />
+There are two major formats for a RSA Public key.</p>
+<p>The PEM public key format uses the header and footer lines:<br />
+-----BEGIN PUBLIC KEY-----<br />
+-----END PUBLIC KEY-----</p>
+<p>The PEM RSAPublicKey format uses the header and footer lines:</p>
+<p>-----BEGIN RSA PUBLIC KEY-----<br />
+-----END RSA PUBLIC KEY-----</p>
+<p>To extract the key in the first PEM public key format:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>private_key.pem<span class="w"> </span>-pubout<span class="w"> </span>-out<span class="w"> </span>public_key.pem
+</code></pre></div>
+<p>To extract the key in the second PEM RSAPublicKey key format:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>private_key.pem<span class="w"> </span>-RSAPublicKey_out<span class="w"> </span>-out<span class="w"> </span>public_key.pem
+</code></pre></div>
+<h3 id="generating-a-signature-rsa">Generating a signature (RSA)<a class="headerlink" href="#generating-a-signature-rsa" title="Permanent link">#</a></h3>
+<p>Prerequisites<br />
+<a href="#generating-a-private-key-rsa">Generating a private key (RSA)</a></p>
+<p>Signature can be created either using the <code>dgst</code> sub util or using the <code>pkeyutl</code> sub utility.</p>
+<p>Lets create a plain text:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Wonderful Wolrd!&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>plain_text.txt
+</code></pre></div>
+<p>There are two ways we can sign a plain text as described above.</p>
+<p>Let us first generate the signature using the <code>dgst</code> sub utility.</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256<span class="w"> </span>-out<span class="w"> </span>signature.sig<span class="w"> </span>-sign<span class="w"> </span>private_key.pem<span class="w"> </span>plain_text.txt
+</code></pre></div>
+<p>Let us create another signature using the second method.<br />
+For this first lets generate the SHA2-256 digest of the <code>plain_text.txt</code>.</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256<span class="w"> </span>-binary<span class="w"> </span>-out<span class="w"> </span>hash.sha256<span class="w"> </span>plain_text.txt
+</code></pre></div>
+<p>Now let us sign the generated hash using <code>pkeyutl</code>.</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>pkeyutl<span class="w"> </span>-sign<span class="w"> </span>-in<span class="w"> </span>hash.sha256<span class="w"> </span>-inkey<span class="w"> </span>private_key.pem<span class="w"> </span>-out<span class="w"> </span>signature2.sig<span class="w"> </span>-pkeyopt<span class="w"> </span>digest:sha256
+</code></pre></div>
+<p>To show that both methods produce the same signature, we can confirm without</p>
+<div class="highlight"><pre><span></span><code>diff<span class="w"> </span>signature.sig<span class="w"> </span>signature2.sig
+</code></pre></div>
+<p>Investigate why OpenSSL does not generate a private key of -----BEGIN RSA PRIVATE KEY----- but rather generates -----BEGIN PRIVATE KEY-----. #ToDo</p>
+<h3 id="verifying-a-signature-rsa">Verifying a signature (RSA)<a class="headerlink" href="#verifying-a-signature-rsa" title="Permanent link">#</a></h3>
+<p>Prerequisites<br />
+<a href="#generating-a-signature-rsa">Generating a signature (RSA)</a> and <a href="#extracting-the-public-key-rsa">Extracting the public Key (RSA)</a></p>
+<p>The verify signature is similar to <a href="#generating-a-signature-rsa">Generating a signature (RSA)</a></p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256<span class="w"> </span>-verify<span class="w"> </span>public_key.pem<span class="w"> </span>-signature<span class="w"> </span>signature.sig<span class="w"> </span>plain_text.txt
+</code></pre></div>
+<p>The second method is the roundabout way of calculating hash and then verifying the signature.</p>
+<p>But this was not successful for me - hence lets update when we get the time. #ToDo</p>
+<h3 id="encrypting-a-file-rsa">Encrypting a file (RSA)<a class="headerlink" href="#encrypting-a-file-rsa" title="Permanent link">#</a></h3>
+<p>Prerequisites<br />
+<a href="#extracting-the-public-key-rsa">Extracting the public Key (RSA)</a></p>
+<p>We could encrypt any plain text using the public key as follows:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>pkeyutl<span class="w"> </span>-encrypt<span class="w"> </span>-inkey<span class="w"> </span>public_key.pem<span class="w"> </span>-pubin<span class="w"> </span>-in<span class="w"> </span>plain_text.txt<span class="w"> </span>-out<span class="w"> </span>cipher_text.txt
+</code></pre></div>
+<h3 id="decrypting-a-file-rsa">Decrypting a file (RSA)<a class="headerlink" href="#decrypting-a-file-rsa" title="Permanent link">#</a></h3>
+<p>Prerequisites<br />
+<a href="#generating-a-private-key-rsa">Generating a private key (RSA)</a></p>
+<p>We could decrypt any plain text using the private key as follows:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>pkeyutl<span class="w"> </span>-decrypt<span class="w"> </span>-inkey<span class="w"> </span>private_key.pem<span class="w"> </span>-in<span class="w"> </span>cipher_text.txt<span class="w"> </span>-out<span class="w"> </span>plain_text2.txt
+</code></pre></div>
+<h3 id="encrypted-private-keys-rsa">Encrypted Private keys (RSA)<a class="headerlink" href="#encrypted-private-keys-rsa" title="Permanent link">#</a></h3>
+<p>An encrypted private key is better and safer than a plain private key.</p>
+<h4 id="generation-of-private-key-encrypted-rsa">Generation of private Key (Encrypted RSA)<a class="headerlink" href="#generation-of-private-key-encrypted-rsa" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genpkey<span class="w"> </span>-out<span class="w"> </span>private_key2.pem<span class="w"> </span>-algorithm<span class="w"> </span>RSA<span class="w"> </span>-aes-128-cbc<span class="w"> </span>-pass<span class="w"> </span>pass:hello
+</code></pre></div>
+<p>Now lets find out what exactly happens in the background.</p>
+<p>Let us create a non encrypted private key from the encrypted one.</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>private_key2.pem<span class="w"> </span>-passin<span class="w"> </span>pass:hello<span class="w"> </span>-out<span class="w"> </span>private_key3.pem
+</code></pre></div>
+<p>I still don't know how to encrypt private_key3.pem to make it private_key2.pem #ToDo<br />
+I could encrypt using ```openssl enc -aes-128-cbc -e -pass pass:hello -in private_key3.pem -out private_key4.pem -a #ToDo</p>
+<p>Hence lets fallback and try the other operations.</p>
+<h4 id="extracting-the-public-key-encrypted-rsa">Extracting the Public key (Encrypted RSA)<a class="headerlink" href="#extracting-the-public-key-encrypted-rsa" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>private_key2.pem<span class="w"> </span>-passin<span class="w"> </span>pass:hello<span class="w"> </span>--RSAPublicKey_out<span class="w"> </span>-out<span class="w"> </span>public_key2.pem
+</code></pre></div>
+<h4 id="generating-a-signature-encrypted-rsa">Generating a Signature (Encrypted RSA)<a class="headerlink" href="#generating-a-signature-encrypted-rsa" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256<span class="w"> </span>-out<span class="w"> </span>signature3.sig<span class="w"> </span>-sign<span class="w"> </span>private_key2.pem<span class="w"> </span>-passin<span class="w"> </span>pass:hello<span class="w"> </span>plain_text.txt
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>pkeyutl<span class="w"> </span>-sign<span class="w"> </span>-in<span class="w"> </span>hash.sha256<span class="w"> </span>-inkey<span class="w"> </span>private_key2.pem<span class="w"> </span>-passin<span class="w"> </span>pass:hello<span class="w"> </span>-out<span class="w"> </span>signature4.sig<span class="w"> </span>-pkeyopt<span class="w"> </span>digest:sha256
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>diff<span class="w"> </span>signature3.sig<span class="w"> </span>signature4.sig
+</code></pre></div>
+<h4 id="verifying-the-signature-encrypted-rsa">Verifying the signature (Encrypted RSA)<a class="headerlink" href="#verifying-the-signature-encrypted-rsa" title="Permanent link">#</a></h4>
+<p>Find out why OpenSSL dgst function accept a RSA Public key but only accepts a generic public key.#ToDo</p>
+<p>Hence to avoid this problem lets convert our RSA Public Key to a generic SSL public public_key.pem</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rsa<span class="w"> </span>-RSAPublicKey_in<span class="w"> </span>-in<span class="w"> </span>public_key2.pem<span class="w"> </span>-out<span class="w"> </span>public_key3.pem<span class="w"> </span>-pubout
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256<span class="w"> </span>-verify<span class="w"> </span>public_key3.pem<span class="w"> </span>-signature<span class="w"> </span>signature3.sig<span class="w"> </span>plain_text.txt
+</code></pre></div>
+<p>More inforation on the above transformation can be found at <a href="https://stackoverflow.com/a/29707204">How to transform between the two key styles</a>.</p>
+<h3 id="generating-a-private-key-ec">Generating a private key (EC)<a class="headerlink" href="#generating-a-private-key-ec" title="Permanent link">#</a></h3>
+<p>Similar to <a href="#generating-a-private-key-rsa">Generating a private key (RSA)</a></p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genpkey<span class="w"> </span>-out<span class="w"> </span>private_key.pem<span class="w"> </span>-algorithm<span class="w"> </span>EC<span class="w"> </span>-pkeyopt<span class="w"> </span>ec_paramgen_curve:P-256<span class="w"> </span>-pkeyopt<span class="w"> </span>ec_param_enc:named_curve
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../.." title="Akshay's Knowledge Base" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Akshay's Knowledge Base
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../openssl_cli/openssl-certificates/" title="OpenSSL Certificates" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                OpenSSL Certificates
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["navigation.expand", "tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
