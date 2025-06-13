@@ -1,10 +1,37 @@
-# OpenSSL RSA
+# OpenSSL CLI Tutorial
+
+## Installation
+
+Below command installs openssl:
+
+```bash
+sudo apt install openssl
+```
+
+Output:
+
+```bash
+openssl is already the newest version (3.0.13-0ubuntu3.5)
+```
+
+You can check the installed version with:
+
+```bash
+openssl version
+```
+
+Output:
+
+```bash
+OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)
+```
 
 ## Introduction
 
-OpenSSL is a general purpose cryptography library / utility.
-In this article we will be exploring the Command Line Interface / Utility part of OpenSSL for RSA and Elliptic Curve Cryptography (EC).
-We will be using ```OpenSSL 1.1.1f``` in the below article.
+```bash
+openssl <command> [options] [arguments]
+```
+
 Before we go into the details, let us first learn a bit of theory on Asymmetric Cryptography, EC and RSA.
 
 ## Asymmetric Key Cryptography

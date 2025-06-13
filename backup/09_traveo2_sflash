@@ -1,0 +1,40 @@
+# Supervisory Flash in Traveo2
+
+## Table Of Contents
+
+- [Supervisory Flash in Traveo2](#supervisory-flash-in-traveo2)
+  - [Table Of Contents](#table-of-contents)
+  - [SFlash Architecture](#sflash-architecture)
+    - [BOOT ROM](#boot-rom)
+    - [Flash Boot](#flash-boot)
+    - [TOC 1](#toc-1)
+    - [TOC 2](#toc-2)
+
+## SFlash Architecture
+
+### BOOT ROM
+
+- Life cycle stage (NAR / SAR) settings
+- Protection state settings
+- Validates integrity of flash boot before starting it.
+
+SLOW_WS[1:0] and FAST_WS[1:0] in the CPUSS_ROM_CLT register.
+
+The programmable wait states represent the number of CLK_HF0 cycles for a read path through the SROM in either the fast or slow domain.
+
+The application that changes CLK_HF0 must set the ROM wait states corresponding to the new target of CLK_HF0 frequency before CLK_HF0 is raised.
+
+The wait states for the slow clock domain are:
+CPUSS_ROM_CTL.SLOW_WS = ‘0’ for (CLK_HF0 ≤ 100 MHz)
+CPUSS_ROM_CTL.SLOW_WS = ‘1’ for (CLK_HF0 > 100 MHz) and (CLK_HF0 ≤ CLK_HF0 Max)
+
+The wait state for the fast clock domain is:
+CPUSS_ROM_CTL.FAST_WS = ‘0’ up to CLK_HF0 Max
+
+The protection state is determined on boot and defined by the value of the CPUSS_PROTECTION register.
+
+### Flash Boot
+
+### TOC 1
+
+### TOC 2

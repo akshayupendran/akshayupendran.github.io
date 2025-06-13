@@ -1,0 +1,21 @@
+---
+title: PKCS#1 V2.2
+type: RFC
+tags: Asymmetric, Encryption/Decryption, SignatureGeneration/Verification
+---
+
+# RFC 8017 PKCS #1: RSA Cryptographic Specification V2.2
+
+## Abstract
+
+- Implementation of the Public Key Cryptography using RSA Algorithm
+- Cryptographic Primitives
+- Encryption Schemes
+- Signatures Schemes with Appendix
+- ASN.1 syntax for representing keys
+- ASN.1 syntax for identifying the schemes
+
+## Obsoletes
+
+- RFC 3447 PKCS #1: RSA Cryptographic Specification V2.1
+- RFC 

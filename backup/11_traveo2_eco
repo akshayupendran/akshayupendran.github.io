@@ -1,0 +1,115 @@
+# External Crystal Oscillator (ECO) TRIM
+
+## Contents
+
+- [External Crystal Oscillator (ECO) TRIM](#external-crystal-oscillator-eco-trim)
+  - [Contents](#contents)
+  - [Resources](#resources)
+  - [Issue Description](#issue-description)
+  - [Proposed Solution for Future Programs](#proposed-solution-for-future-programs)
+    - [Role of HW Team](#role-of-hw-team)
+    - [Role of SW MCAL Team](#role-of-sw-mcal-team)
+    - [Role of SW HSM Team](#role-of-sw-hsm-team)
+  - [Tool Details](#tool-details)
+    - [Input Parameters to Tool](#input-parameters-to-tool)
+    - [Output Parameters from Tool](#output-parameters-from-tool)
+  - [Proposed Solution for Programs Under Development (and not in production)](#proposed-solution-for-programs-under-development-and-not-in-production)
+    - [List of Programs to Fix](#list-of-programs-to-fix)
+    - [Software Example](#software-example)
+
+## Resources
+
+- [PDF Explaining ECO Parameters](https://visteon.sharepoint.com/sites/InfraCore-All/_layouts/15/guestaccess.aspx?share=EZhUF-6R3VFMmZWmU_3i1EIBRnpsQZzsqe3crB-u4zKl-g&e=gZcc2T)
+- [Tool for ECO Parameters Calculator](https://visteon.sharepoint.com/sites/InfraCore-All/_layouts/15/guestaccess.aspx?share=ETTqFnedLUZJrJ0YLHddrrgB4poCjDKCY0d2XfOiYYDM2Q&e=BvAA0i)
+
+## Issue Description
+
+- While calculating the trim values for the Toyota 12.3-inch FDC program, it was found that the trim values were configured incorrectly in the Toyota 38xd and other Traveo2 programs.
+
+## Proposed Solution for Future Programs
+
+- The software team has calculated and archived the trim values for the Toyota 12.3-inch program at [30944](https://visteon.atlassian.net/browse/TFDCX32348-30944).
+
+### Role of HW Team
+
+- Calculate and archive ECO parameters in HSIS.
+- Archive the oscillator datasheet screenshot in HSIS.
+- Archive the negative resistance in HSIS once characterization is completed.
+
+### Role of SW MCAL Team
+
+- Review and confirm the trim values provided in HSIS using the ECO parameters tool.
+- Configure these values in MCAL.
+
+### Role of SW HSM Team
+
+- Before enabling the ECO via `ECO_EN=1`, set the parameters output by the tool as described in [Output Parameters from Tool](#output-parameters-from-tool).
+
+## Tool Details
+
+### Input Parameters to Tool
+
+- f (frequency of ECO oscillator)
+- D~L~ (maximum drive level)
+- ESR (Equivalent Series Resistance, R1_MAX)
+- C~0_XTAL~ (Shunt Capacitance)
+- C~L~ (Parallel Load Capacitance)
+- Negative resistance (|-R|)
+
+### Output Parameters from Tool
+
+- ATRIM
+- FTRIM
+- WDTRIM
+- RTRIM
+- GTRIM
+- AGC_EN
+
+## Proposed Solution for Programs Under Development (and not in production)
+
+- The Regional Software Project Development organization shall provide the list of TV2 programs to the MCAL Team.
+- Coordinate with the HW team to ensure TRIM values are available in HSIS. [Role of HW Team](#role-of-hw-team)
+- The Regional Software Product Owner shall create tasks for the SW MCAL and SW HSM Teams.
+- The SW MCAL Team will review and confirm the trim values in HSIS. [Role of SW MCAL Team](#role-of-sw-mcal-team)
+- The SW HSM Team will implement the necessary software changes and deliver. [Role of SW HSM Team](#role-of-sw-hsm-team)
+
+### List of Programs to Fix
+
+| Region | Program                  | Work Item Before Characterisation                              | Work item after characterisation                               |
+|--------|--------------------------|----------------------------------------------------------------| ---------------------------------------------------------------|
+| APAC   | Toyota 12.3-inch (32348) | [30944](https://visteon.atlassian.net/browse/TFDCX32348-30944) | -                                                              |
+| APAC   | Toyota 38xd      (29284) | -                                                              | [30944](https://visteon.atlassian.net/browse/TFDCX32348-30944) |
+| EU     | Scania DDU       (28995) | [2354](https://visteon.atlassian.net/browse/SCAN28995-2354)    | [2354](https://visteon.atlassian.net/browse/SCAN28995-2354)    |
+| EU     | Scania EA        (28995) | [2356](https://visteon.atlassian.net/browse/SCAN28995-2356)    | [2356](https://visteon.atlassian.net/browse/SCAN28995-2356)    |
+| EU     | Audi Padi CiD    (29610) | -                                                              | -                                                              |
+| EU     | Audi Padi FiD    (29610) | -                                                              | -                                                              |
+| EU     | VW B8 MP23       (29854) | -                                                              | -                                                              |
+| EU     | VW B8 MP24       (29854) | -                                                              | -                                                              |
+| EU     | VW B8 MP25       (29854) | -                                                              | -                                                              |
+| EU     | RSA X52 T2 REDES (29518) | -                                                              | -                                                              |
+| EU     | RSA CID 10.1     (30049) | -                                                              | -                                                              |
+| EU     | MB BR 206        (30372) | -                                                              | -                                                              |
+| EU     | JLR CCCM         (29298) | -                                                              | -                                                              |
+
+### Software Example
+
+```c
+#if CY_SYSTEM_USE_CLOCK == CY_SYSTEM_USE_ECO
+
+    /***    ECO port settings        ***/
+    /* Default settings should be OK. */
+
+    /***    ECO setting and enabling        ***/
+    // These values need to be confirmed
+    SRSS->unCLK_ECO_CONFIG2.stcField.u3WDTRIM = 4u;
+    SRSS->unCLK_ECO_CONFIG2.stcField.u4ATRIM  = 12u;
+    SRSS->unCLK_ECO_CONFIG2.stcField.u2FTRIM  = 3u;
+    SRSS->unCLK_ECO_CONFIG2.stcField.u2RTRIM  = 3u;
+    SRSS->unCLK_ECO_CONFIG2.stcField.u3GTRIM  = 1u;
+
+    SRSS->unCLK_ECO_CONFIG.stcField.u1AGC_EN = 0ul;
+    SRSS->unCLK_ECO_CONFIG.stcField.u1ECO_EN = 1ul;
+    while(SRSS->unCLK_ECO_STATUS.stcField.u1ECO_OK == 0ul);
+    while(SRSS->unCLK_ECO_STATUS.stcField.u1ECO_READY == 0ul);
+#endif
+```

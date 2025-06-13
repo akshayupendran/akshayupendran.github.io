@@ -1,0 +1,81 @@
+# Transition to RMA
+
+- [Transition to RMA](#transition-to-rma)
+  - [Flowchart](#flowchart)
+  - [Resources](#resources)
+  - [Failure type](#failure-type)
+  - [Steps to be followed by Visteon in case of failure(s)](#steps-to-be-followed-by-visteon-in-case-of-failures)
+    - [Required Information](#required-information)
+  - [Pre-requisites](#pre-requisites)
+  - [How to acquire pre-requisite](#how-to-acquire-pre-requisite)
+
+## Flowchart
+
+```mermaid
+stateDiagram
+    [*] --> M0P starts
+    M0P check --> OEM_CLOSED
+    OEM_CLOSED --> OEM_RETURN
+```
+
+## Resources
+
+1. [002-30102_0A_V_AN230102 - Failure analysis process in TRAVEO T2G devices](https://visteon.sharepoint.com/sites/InfraCore-All/_layouts/15/guestaccess.aspx?share=EcqjQpV8EblDnkF5kC52l94BPM5-jy4E6TGyso8N9eVMiQ&e=6Ox4sg)
+2. [002-28680_0F_V_AN228680 - SECURE SYSTEM CONFIGURATION IN TRAVEO T2G FAMILY](https://visteon.sharepoint.com/sites/InfraCore-All/_layouts/15/guestaccess.aspx?share=EXKX0BmPXjFCtbxFljlN3EcBBOj0oBNqvEijU0_84AOC4g&e=vEaXSf)
+
+## Failure type
+
+First step is to identify the failure type. They are either one of:
+
+1. In the Field / End Customer.
+2. During production at OEM / "0 km Failure"
+3. During production at Tier 1
+
+## Steps to be followed by Visteon in case of failure(s)
+
+- Perform a swap test to identify if the failure moves with the microcontroller.
+- Perform initial failure analysis.
+- Create a failure report.
+- Define a clear and comprehensive failure description.
+- QA of TIER1 contacts regional quality partner at Infineon to hand over all [required information](#required-information).
+- Infineon creates a new FA case in salesforce.com.
+- TIER1 sends the sample to Infineon.
+- Steps followed are described in Failure analysis procedure at Infineon.
+
+### Required Information
+
+Table 11 Customer request handout
+
+|Needed Information|Additional Information|
+|-|-|
+|Contact person|–|
+|End customer|–|
+|Mark code and lot number|Lot code, date code information printed on the MCU. Provide a photograph if possible.|
+|Project name|Project name of the final product|
+|Failure rate and conditions|How likely the failure is reproduced and under which conditions (temperature, supply voltage, CAN messages, etc.)|
+|Quantity of return samples|-|
+|Failure found at 1.Incoming, 2.Programmer (provide third-party vendor name), 3.On-board programming, 4.Board level – ICT, 5.Qualification test, 6.System level – FT,7.0km Field (mileage)|-|
+|CCAR priority 1.Catastrophic,2.High,3.Standard|Provide the business justification for this priority classification. For example: details of the customer’s lines down situation and/or how this has potential to severely affect Infineon’s revenue.|
+|Is there any special laser marking or X-ray inspection step in the production? If yes, provide details.|-|
+|Did the customer SMT reflow profile comply with JEDEC standard?|Provide reflow profile if necessary.|
+
+## Pre-requisites
+
+1. Device's Unique ID
+2. Visteon's Private Key for the public key in the sflash.
+
+## How to acquire pre-requisite
+
+1. If Sys-DAP is available, these two special commands can be run via Sys-DAP.
+2. The first command is to read the internal unique device ID, and the other is to invoke the transition to the RMA lifecycle stage.
+
+Converts parts from SECURE or SECURE WITH DEBUG to the RMA life-cycle stage. This API returns the 0xF00000A9
+failure code if any active embedded flash operations are going on. Note that TransitiontoRMA will consume an additional 2KB
+of SRAM starting at address 0x28000800. For successful execution of the system call, read and write access for this area
+should be provided for Protection Context 1 (PC1). Otherwise, the execution will fail and there will be no transition into the
+RMA life-cycle stage. When using the TransitiontoRMA API, to move a device to the RMA life-cycle stage, parameters such
+as certificate and digital signature must be placed from [SRAM0 start address + 4KB].
+Note: Due to improper initialization of the Crypto memory buffer and internal SRAM0, Crypto and SRAM0 ECC errors may
+occur after the TransitionToRMA SROM API call. The PERI_GROUP_VIO_2 fault may also get set. To avoid this issue, do not
+configure the fault structure for Crypto, SRAM0 ECC errors, and PERI_GROUP_VIO_2 fault before triggering
+TransitionToRMA, or ignore the ECC faults reported during TransitionToRMA execution.
