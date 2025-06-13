@@ -1,26 +1,5 @@
 # OpenSSL RSA
 
-- [OpenSSL RSA](#openssl-rsa)
-  - [Introduction](#introduction)
-  - [Asymmetric Key Cryptography](#asymmetric-key-cryptography)
-  - [OpenSSL CLI Introduction](#openssl-cli-introduction)
-  - [PEM vs DER](#pem-vs-der)
-  - [RSA](#rsa)
-  - [EC](#ec)
-  - [Practical Experiments](#practical-experiments)
-    - [Generating a private key (RSA)](#generating-a-private-key-rsa)
-    - [Extracting the public Key (RSA)](#extracting-the-public-key-rsa)
-    - [Generating a signature (RSA)](#generating-a-signature-rsa)
-    - [Verifying a signature (RSA)](#verifying-a-signature-rsa)
-    - [Encrypting a file (RSA)](#encrypting-a-file-rsa)
-    - [Decrypting a file (RSA)](#decrypting-a-file-rsa)
-    - [Encrypted Private keys (RSA)](#encrypted-private-keys-rsa)
-      - [Generation of private Key (Encrypted RSA)](#generation-of-private-key-encrypted-rsa)
-      - [Extracting the Public key (Encrypted RSA)](#extracting-the-public-key-encrypted-rsa)
-      - [Generating a Signature (Encrypted RSA)](#generating-a-signature-encrypted-rsa)
-      - [Verifying the signature (Encrypted RSA)](#verifying-the-signature-encrypted-rsa)
-    - [Generating a private key (EC)](#generating-a-private-key-ec)
-
 ## Introduction
 
 OpenSSL is a general purpose cryptography library / utility.
